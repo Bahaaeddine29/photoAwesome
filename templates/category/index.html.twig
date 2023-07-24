@@ -8,8 +8,8 @@
 
     <ul> 
         {% for category in categories %}
-        <li> {{ category.label }}</li>
+        <li> <a href="{{ path ('app_category_show', {'id' : category.id}) }}"> {{ category.label }}</li>
 
         {% endfor %}
-        
+
 {% endblock %}
