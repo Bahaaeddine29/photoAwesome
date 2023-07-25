@@ -5,18 +5,19 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 #[Route('/admin/category')]
 class CategoryController extends AbstractController
 {
     public function __construct(
         private CategoryRepository $categoryRepository, 
-        private EntityManager $entityManager,
+        private EntityManagerInterface $entityManager,
     )
     {
         
@@ -51,6 +52,10 @@ class CategoryController extends AbstractController
         $form->handleRequest($request); 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($category);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_category'); 
 
         }
 
@@ -59,6 +64,19 @@ class CategoryController extends AbstractController
             'form' => $form->createView()
 
         ]);
+    }
+
+    #[Route('/delete/{id}', name: 'app_category_delete')]
+    public function delete($id ): Response
+    {
+        $category = $this->categoryRepository-> find($id);
+
+        if ($category !== null) { 
+        $this->entityManager->remove($category);
+        $this->entityManager->flush();
+    }
+       
+        return $this->redirectToRoute('app_category');
     }
 
 }
