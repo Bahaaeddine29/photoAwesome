@@ -49,7 +49,7 @@ class SetAdminCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $output->writeln('User' . $email . 'is now ADMIN');
+        $output->writeln('User' . $email . 'is now A');
 
         return Command::SUCCESS;
     }

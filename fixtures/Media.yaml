@@ -1,0 +1,9 @@
+App\Entity\Media: 
+    media{0..200}:
+        filepath: ""
+        title: "<word()>"
+        description: "<sentence()>"
+        slug: "<word()>"
+        createAt: '<dateTimeBetween("-2years", "now")>'
+        user: "@user*"
+        categories: "<numberBetween(1, 10)>x @category*"
