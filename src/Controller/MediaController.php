@@ -29,7 +29,7 @@ class MediaController extends AbstractController
         ); 
 
         return $this->render('media/index.html.twig', [
-            'controller_name' => 'MediaController',
+            'medias' => $pagination
         ]);
     }
 }

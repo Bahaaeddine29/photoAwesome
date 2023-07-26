@@ -4,7 +4,16 @@
 
 {% block body %}
 
+
     <h1> Liste des catégories</h1>
+
+    {{ form_start(form)}}
+
+    {{ form_row(form.categoryTitle) }}
+
+    <button type="submit"> Rechercher </button>
+
+    {{ form_end(form) }}
 
     <ul> 
         {% for category in categories %}

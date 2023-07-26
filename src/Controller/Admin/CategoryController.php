@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use App\Form\CategorySearchType;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,6 +30,20 @@ class CategoryController extends AbstractController
     public function index(Request $request): Response
     {   
         $qb = $this->categoryRepository->getQbAll(); 
+
+
+        $form = $this->createForm(CategorySearchType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+            dump($data);
+        if($data['categoryTitle'] !== null) { 
+            $qb->andWhere ('c.label LIKE :title') 
+                -> setParameter('title', "%" . $data['categoryTitle'] . "%" ); }
+        }
+     
+
         $pagination = $this->paginator->paginate( 
             $qb, 
             $request->query->getInt('page', 1),  
@@ -36,9 +51,11 @@ class CategoryController extends AbstractController
         ); 
         // dd($categoryEntities); 
         return $this->render('category/index.html.twig', [
-            'categories' => $pagination
+            'categories' => $pagination, 
+            'form' => $form->createView()
         ]);
     }
+
 
     #[Route('/show/{id}', name: 'app_category_show')]
     public function detail($id): Response

@@ -24,7 +24,7 @@ class CategoryRepository extends ServiceEntityRepository
 
     public function getQbAll () : QueryBuilder
     {
-        return $this->createQueryBuilder('m'); 
+        return $this->createQueryBuilder('c'); 
     }
 //    /**
 //     * @return Category[] Returns an array of Category objects
