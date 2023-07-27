@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MediaController!{% endblock %}
+
+
+{% block body %}
+
+{{ form_start(formMedia)}}
+
+{{ form_row(formMedia.file) }}
+{{ form_row(formMedia.title) }}
+{{ form_row(formMedia.description) }}
+{{ form_row(formMedia.categories) }}
+
+{# {{ form_row(formMedia.user) }} #}
+
+
+<button type="submit"> Ajouter </button>
+
+{{ form_end(formMedia) }}
+
+
+
+{% endblock %}
