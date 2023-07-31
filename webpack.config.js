@@ -22,6 +22,11 @@ Encore
      */
     .addEntry('script', './assets/script/main.js')
     
+    .addStyleEntry('style', './assets/style/main.css')
+
+    .copyFiles([
+        {from: './assets/images', to: 'images/[path][name].[ext]'}
+    ])
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -55,7 +60,7 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
